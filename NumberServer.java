@@ -6,16 +6,16 @@ class Handler implements URLHandler {
     // various requests.
     int num = 0;
 
-    public String handleRequest(URI url) {
-        if (url.getPath().equals("/")) {
-            return String.format("Number: %d", num);
-        } else if (url.getPath().equals("/increment")) {
-            num += 1;
-            return String.format("Number incremented!");
+    public String handleRequest(URI url) {                  
+        if (url.getPath().equals("/")) {                            //Get url path and check if it has a "/""
+            return String.format("Number: %d", num);                //Return a message "Number: "
+        } else if (url.getPath().equals("/increment")) {            //Get url path and check if it has "increment"
+            num += 1;                                               //increment value 
+            return String.format("Number incremented!");            //Output a mesage 
         } else {
-            System.out.println("Path: " + url.getPath());
-            if (url.getPath().contains("/add")) {
-                String[] parameters = url.getQuery().split("=");
+            System.out.println("Path: " + url.getPath());           //Prints out path
+            if (url.getPath().contains("/add")) {                   // check if path contains "/add"
+                String[] parameters = url.getQuery().split("=");    // Get Query? then split with "="??
                 if (parameters[0].equals("count")) {
                     num += Integer.parseInt(parameters[1]);
                     return String.format("Number increased by %s! It's now %d", parameters[1], num);
@@ -28,7 +28,7 @@ class Handler implements URLHandler {
 
 class NumberServer {
     public static void main(String[] args) throws IOException {
-        if(args.length == 0){
+        if(args.length == 0){       //What is the arg? is it the url link? if the length = 0 then no port number
             System.out.println("Missing port number! Try any number between 1024 to 49151");
             return;
         }
