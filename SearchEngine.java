@@ -9,10 +9,22 @@ class Handler implements URLHandler {
 
     public String handleRequest(URI url) {
         System.out.println("Path: " + url.getPath());
+
         if(url.getPath().contains("/add")){ 
             String[] parameters = url.getQuery().split("=");
             items.add(0,parameters[1]);
             return parameters[1];
+        } else if(url.getPath().contains("/search")){
+            
+            String[] parameters = url.getQuery().split("=");
+            ArrayList<String> matchedWords = new ArrayList<String>(); 
+
+            for(int i= 0; i<items.size();i++){
+                if(items.get(i).contains(parameters[1])){
+                    matchedWords.add(0,items.get(i));
+                }
+            } 
+            return matchedWords.toString();    
         }
     return "404 Not Found!";
     }   
